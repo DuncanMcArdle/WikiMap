@@ -1,0 +1,1 @@
+WikiMap is an interactive, live view of all geographically tagged Wikipedia edits, made using the wonderful WebSocket provided by Hatnote. You can find out more about both projects here: http://www.duncanmcardle.com/wikimap-a-live-map-view-of-wikipedia-edits/
