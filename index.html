@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<head>
+
+	<!-- Page title -->
+	<title>WikiMap (now on GitHub!)</title>
+	
+	<!-- CSS -->
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/index.css" />
+
+	<!-- Google Maps -->
+	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUcJ1FX8oss-Vbs1cRSPUB2Oy5snUhxVo&callback=InitialiseGoogleMap"></script>
+	
+	<!-- jQuery & Bootstrap-->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+	<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+	<script src="js/bootstrap.min.js"></script>
+	
+	<!-- Flag icons -->
+	<link href="css/flag-icon.min.css" rel="stylesheet">
+	
+	<!-- Custom JavaScript -->
+	<script src="js/index.js"></script>
+	<script src="js/countryCodes.js"></script>
+
+</head>
+
+<body>
+
+	<!-- Google Map -->
+	<div class="container-fluid">
+		<div class="boxContainer col-md-12">
+			<div class="box">
+				<div id="map"></div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+	
+		<!-- Live edits -->
+		<div class="boxContainer col-xs-12 col-sm-12 col-md-12 col-lg-4">
+			<div class="box">
+		
+				<h3>Live edits <a id="showRegionToggle" href="#">(show region)</a></h3>
+				
+				<table id="liveEditTable" class="table">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Country</th>
+							<th>Article</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="emptyPlaceholder"><td colspan="3"><i>No edits received that contain location data.</i></td></tr>
+					</tbody>
+				</table>
+			
+			</div>
+		</div>
+		
+		<!-- Most active countries -->
+		<div class="boxContainer col-xs-12 col-sm-12 col-md-6 col-lg-4">
+			<div class="box">
+
+				<h3>Most active countries</h3>
+			
+				<table id="countryTable" class="table">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Country</th>
+							<th>Last edit</th>
+							<th>Edits</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="emptyPlaceholder"><td colspan="4"><i>No edits received that contain location data.</i></td></tr>
+					</tbody>
+				</table>
+				
+			</div>
+		</div>
+		
+		<!-- Additional information -->
+		<div class="boxContainer col-xs-12 col-sm-12 col-md-6 col-lg-4">
+			<div class="box">
+
+				<h3>Additional information</h3>
+			
+				<table id="additionalInfoTable" class="table">
+					<tbody>
+						<tr><th>Connection status:</th><td id="additionalInfoConnectionStatus"><span class="orangeText"><b>Connecting...</b></span></td></tr>
+						<tr><th>Connected time:</th><td id="additionalInfoConnectedTime">Not connected</td></tr>
+						<tr><th>Total edits received:</th><td id="additionalInfoTotalEdits">0</td></tr>
+						<tr><th>Total edits with a location:</th><td id="additionalInfoTotalEditsWithLocation">0</td></tr>
+						<tr><th>Total characters changed:</th><td id="additionalInfoTotalCharactersChanged">0</td></tr>
+						<tr><td colspan="2"><a href="#" id="additionalInfoPauseResumeEditsButton" class="btn btn-block btn-warning"><span class="glyphicon glyphicon-pause"></span> Pause edits</a></td></tr>
+					</tbody>
+				</table>
+				
+			</div>
+		</div>
+		
+		<!-- Footer -->
+		<div id="footer" class="box">
+
+			<p class="text-center"><span class="hidden-xs">Created by </span><a target="_blank" href="http://www.duncanmcardle.com">Duncan McArdle</a> - <span class="hidden-xs hidden-sm">See the source code on </span><a target="_blank" href="https://github.com/DuncanMcArdle/WikiMap">GitHub</a> - <a target="_blank" href="http://www.duncanmcardle.com/">Blog post</a><span class="hidden-xs hidden-sm"> about the project</span> - <span class="hidden-xs">Thanks to </span><a target="_blank" href="http://blog.hatnote.com/post/56856315107/listen-to-wikipedia">Hatnote</a></p>
+
+		</div>
+
+		
+	</div>
+    
+</body>
