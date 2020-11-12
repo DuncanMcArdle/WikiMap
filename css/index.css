@@ -1,133 +1,111 @@
 /* Main body */
-body
-{
+body {
 	background-color: #fafafa;
 	margin-bottom: 3em;
 }
 
 /* Google Maps map */
-#map
-{
+#map {
 	height: 30em;
 	width: 100%;
 }
 
 /* Country flags table cells */
-#countryTable thead th:first-child
-{
+#countryTable thead th:first-child {
 	width: 1px;
 }
 
 /* Hidden elements */
-.hidden
-{
+.hidden {
 	display: none;
 }
 
 /* Box */
-.box h1, .box h2, .box h3, .box p
-{
+.box h1,
+.box h2,
+.box h3,
+.box p {
 	text-align: center;
-	padding-bottom: .5em;
+	padding-bottom: 0.5em;
 	margin-bottom: 0;
-	padding-top: .5em;
+	padding-top: 0.5em;
 	margin-top: 0;
 }
-.box
-{
+.box {
 	width: 100%;
-    border-radius: 2px;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);
-    background-color: #FFFFFF;
-    display: inline-block;
+	border-radius: 2px;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	background-color: #ffffff;
+	display: inline-block;
 }
-.boxContainer 
-{
+.boxContainer {
 	margin-top: 1em;
 }
 
 /* "Show region" toggle link */
-#showRegionToggle
-{
+#showRegionToggle {
 	font-size: 0.5em;
 	vertical-align: middle;
 }
 
 /* All columns of the live edits table */
-#liveEditTable tbody td
-{
-	white-space:nowrap;
-}
-	
-/* Country column (live edits table) */
-#liveEditTable tbody tr td:nth-child(2)
-{
+#liveEditTable tbody td {
+	white-space: nowrap;
 }
 
 /* Article column (live edits table) */
-#liveEditTable tbody tr td:nth-child(3)
-{
+#liveEditTable tbody tr td:nth-child(3) {
 	width: 99%;
 	max-width: 0;
 	text-overflow: ellipsis;
-	overflow:hidden;
+	overflow: hidden;
 }
 
 /* Country column (most active countries table) */
-#countryTable tbody tr td:nth-child(2)
-{
+#countryTable tbody tr td:nth-child(2) {
 	white-space: nowrap;
 }
 
 /* Table placeholders */
-.emptyPlaceholder
-{
+.emptyPlaceholder {
 	text-align: center;
 }
 
 /* Spacing between container rows */
-.container-fluid
-{
+.container-fluid {
 	margin-top: 1em;
 }
 
 /* Additional info table */
-#additionalInfoTable tr th
-{
+#additionalInfoTable tr th {
 	width: 50%;
 	text-align: right;
 }
 
 /* Text colouring */
-.greenText
-{
+.greenText {
 	color: green;
 }
-.redText
-{
-	color:red;
+.redText {
+	color: red;
 }
-.orangeText
-{
-	color: #FF6600;
+.orangeText {
+	color: #ff6600;
 }
 
 /* Map marker info windows */
-#infoWindowTable
-{
-	margin: .5em;
+#infoWindowTable {
+	margin: 0.5em;
 }
-#infoWindowTable th
-{
-	padding-right: .5em;
+#infoWindowTable th {
+	padding-right: 0.5em;
 	text-align: right;
 }
 
 /* Page footer */
-#footer
-{
+#footer {
 	position: fixed;
 	bottom: 0;
 	left: 0;
-	box-shadow: 0 2px 20px 0 rgba(0,0,0,0.26);
+	box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.26);
 }
