@@ -67,7 +67,7 @@ function InitialiseWebSocketConnection() {
 	webSocketConnection.onclose = function (msg) {
 		// Update the relevant sections in the "additional information" box
 		$('#additionalInfoConnectionStatus').html(
-			"<b><span class='redText'>Disconnected</span> (<a href='#' id='additionalInfoConnectionReconnect'>reconnect</a>)</b>"
+			"<b><span class='redText'>Disconnected</span> (<a href='#' id='additionalInfoReconnect'>reconnect</a>)</b>"
 		);
 	};
 }
@@ -80,18 +80,18 @@ function ProcessEdit(editObject) {
 		editsReceivedWhilePaused.push(editObject);
 	} else {
 		// Increment the total number of edits received and the total number of letters changed
+		totalEdits++;
+		totalLettersChanged += Math.abs(editObject['change_size']);
+		const editsPerSecond = (totalEdits / totalConnectedTime).toFixed(2);
+		const lettersPerEdit = (totalLettersChanged / totalEdits).toFixed(2);
+
 		$('#additionalInfoTotalEdits').text(
-			FormatNumber(++totalEdits) +
-				' (' +
-				+(totalEdits / totalConnectedTime).toFixed(2) +
-				' per second)'
+			FormatNumber(totalEdits) + ' (' + editsPerSecond + ' per second)'
 		);
 		$('#additionalInfoTotalCharactersChanged').text(
-			FormatNumber(
-				(totalLettersChanged += Math.abs(editObject['change_size']))
-			) +
+			FormatNumber(totalLettersChanged) +
 				' (' +
-				+(totalLettersChanged / totalEdits).toFixed(2) +
+				lettersPerEdit +
 				' per edit)'
 		);
 
@@ -118,6 +118,8 @@ function ProcessEdit(editObject) {
 				editObject['geo_ip']['region_name'] != null
 					? editObject['geo_ip']['region_name']
 					: editObject['geo_ip']['country_name'];
+
+			// Construct the region text (if a region was specified)
 			const regionText =
 				editObject['geo_ip']['region_name'] != null
 					? "<span class='region " +
@@ -127,49 +129,58 @@ function ProcessEdit(editObject) {
 					  ')</span>'
 					: '';
 
-			// Prepend the edit to the "live edits" table (and remove any entries beyond 10)
+			// Construct a flag element for the respective country
+			const flag =
+				'<span class="flag-icon flag-icon-' +
+				GetCountryCode(editObject['geo_ip']['country_name']) +
+				'"></span>';
+
+			// Construct a Wiki link for the edited page
+			const wikiLink =
+				'<a href="https://en.wikipedia.org/wiki/' +
+				encodeURI(editObject['page_title']) +
+				'" target="_blank" title="' +
+				editObject['page_title'] +
+				'">' +
+				editObject['page_title'] +
+				'</a>';
+
+			// Prepend the edit to the "live edits" table
 			$('#liveEditTable').prepend(
-				'<tr><td><span class="flag-icon flag-icon-' +
-					GetCountryCode(
-						editObject['geo_ip']['country_name']
-					).toLowerCase() +
-					'"></span></td><td>' +
+				'<tr><td>' +
+					flag +
+					'</td><td>' +
 					editObject['geo_ip']['country_name'] +
 					regionText +
-					'</span></td><td><a href="https://en.wikipedia.org/wiki/' +
-					encodeURI(editObject['page_title']) +
-					'" target="_blank" title="' +
-					editObject['page_title'] +
-					'">' +
-					editObject['page_title'] +
-					'</a></td></tr>'
+					'</span></td><td>' +
+					wikiLink +
+					'</td></tr>'
 			);
+
+			// Remove any entries beyond 10
 			$('#liveEditTable tr:nth-child(n+11)').remove();
 
 			// Variable to keep track of whether the specific country has been found
-			let countryAdded = false;
+			let countryExists = false;
 
 			// Loop through the existing country list
-			for (let i = 0; i < countries.length; i++) {
+			for (let country of countries) {
 				// Check if the country in question matches the new one
-				if (
-					countries[i]['country'] ==
-					editObject['geo_ip']['country_name']
-				) {
-					// Increment that country's counter
-					countries[i]['counter']++;
-					countries[i]['lastEdit'] = editObject['Timestamp'];
-					countryAdded = true;
+				if (country['name'] == editObject['geo_ip']['country_name']) {
+					// Increment that country's number of edits
+					country['edits']++;
+					country['lastEdit'] = editObject['Timestamp'];
+					countryExists = true;
 					break;
 				}
 			}
 
 			// If no match was found (indicating that this is the first occurence of this country)
-			if (!countryAdded) {
+			if (!countryExists) {
 				// Assemble a country object
 				const countryObject = {
-					country: editObject['geo_ip']['country_name'],
-					counter: 1,
+					name: editObject['geo_ip']['country_name'],
+					edits: 1,
 					lastEdit: editObject['Timestamp'],
 				};
 
@@ -370,11 +381,11 @@ function EverySecond() {
 
 // Function to update the list of most active countries
 function UpdateMostActiveCountries() {
-	// Sort the list of countries by their number of edits
+	// Sort the list of countries by their number of edits (and then their names)
 	countries.sort(function (a, b) {
-		return a['counter'] != b['counter']
-			? b['counter'] - a['counter']
-			: b['country'] < a['country']
+		return a['edits'] != b['edits']
+			? b['edits'] - a['edits']
+			: b['name'] < a['name']
 			? 1
 			: -1;
 	});
@@ -387,9 +398,9 @@ function UpdateMostActiveCountries() {
 		// Append each country to the "most active countries" table
 		$('#countryTable').append(
 			"<tr><td><span class='flag-icon flag-icon-" +
-				GetCountryCode(countries[i]['country']).toLowerCase() +
+				GetCountryCode(countries[i]['name']) +
 				"'></span></td><td>" +
-				countries[i]['country'] +
+				countries[i]['name'] +
 				'</td><td>' +
 				GetTimeSinceTimestamp(
 					Math.round(countries[i]['lastEdit'] / 1000),
@@ -397,7 +408,7 @@ function UpdateMostActiveCountries() {
 					'ago'
 				) +
 				'</td><td>' +
-				FormatNumber(countries[i]['counter']) +
+				FormatNumber(countries[i]['edits']) +
 				'</td></tr>'
 		);
 	}
@@ -424,9 +435,7 @@ $(document).ready(function () {
 	});
 
 	// When the "reconnect" link is pressed
-	$(document).on('click', '#additionalInfoConnectionReconnect', function (
-		event
-	) {
+	$(document).on('click', '#additionalInfoReconnect', function (event) {
 		// Prevent a hash from being appended to the URL
 		event.preventDefault();
 
@@ -440,10 +449,11 @@ $(document).ready(function () {
 		event.preventDefault();
 
 		// Toggle the paused state of the websocket
+		webSocketConnectionPaused = 1 - webSocketConnectionPaused;
 		$('#additionalInfoPauseResumeEditsButton')
 			.toggleClass('btn-warning btn-success')
 			.html(
-				(webSocketConnectionPaused = 1 - webSocketConnectionPaused)
+				webSocketConnectionPaused
 					? "<span class='glyphicon glyphicon-play'></span> Resume edits (paused for 0 seconds)"
 					: "<span class='glyphicon glyphicon-pause'></span> Pause edits"
 			);
