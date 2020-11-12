@@ -9,8 +9,15 @@
 	Changes on 25/05/2018
 	---------------------
 	Libyan Arab Jamahiriya			=> Libya
-									=> Bonaire, Sint Eustatius, and Saba
-									=> Ivory Coast
+	(new addition)					=> Bonaire, Sint Eustatius, and Saba
+	(new addition)					=> Ivory Coast
+	
+	Changes on 12/11/2020
+	---------------------
+	Czech Republic					=> Czechia
+	Reunion							=> Réunion
+	Republic of Korea				=> South Korea
+
 */
 
 // List of country codes
@@ -73,7 +80,7 @@ var countryCodes = [
 	['HR', 'Croatia'],
 	['CU', 'Cuba'],
 	['CY', 'Cyprus'],
-	['CZ', 'Czech Republic'],
+	['CZ', 'Czechia'],
 	['DK', 'Denmark'],
 	['DJ', 'Djibouti'],
 	['DM', 'Dominica'],
@@ -132,7 +139,7 @@ var countryCodes = [
 	['KZ', 'Kazakhstan'],
 	['KE', 'Kenya'],
 	['KI', 'Kiribati'],
-	['KR', 'Republic of Korea'],
+	['KR', 'South Korea'],
 	['KW', 'Kuwait'],
 	['KG', 'Kyrgyzstan'],
 	['LA', "Lao People's Democratic Republic"],
@@ -195,7 +202,7 @@ var countryCodes = [
 	['PT', 'Portugal'],
 	['PR', 'Puerto Rico'],
 	['QA', 'Qatar'],
-	['RE', 'Reunion'],
+	['RE', 'Réunion'],
 	['RO', 'Romania'],
 	['RU', 'Russia'],
 	['RW', 'Rwanda'],
