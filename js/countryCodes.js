@@ -273,7 +273,7 @@ function GetCountryCode(country) {
 		for (let i = 0; i < countryCodes.length; i++) {
 			// Check if the given country matches the one being searched for
 			if (countryCodes[i][1].toLowerCase() == country.toLowerCase()) {
-				return countryCodes[i][0];
+				return countryCodes[i][0].toLowerCase();
 			}
 		}
 	}
