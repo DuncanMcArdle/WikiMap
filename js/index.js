@@ -1,24 +1,24 @@
 // Miscellaneous variables
-var countries = [];
-var firstMessageReceived = false;
-var editsReceivedWhilePaused = [];
-var showRegions = false;
+let countries = [];
+let firstMessageReceived = false;
+let editsReceivedWhilePaused = [];
+let showRegions = false;
 
 // Websocket variables
-var webSocketConnection;
-var webSocketConnectionPaused = false;
-var webSocketPausedTime = 0;
+let webSocketConnection;
+let webSocketConnectionPaused = false;
+let webSocketPausedTime = 0;
 
 // Google Map variables
-var googleMap;
-var googleMapMarkerClusterer;
-var googleMapInfoWindow;
+let googleMap;
+let googleMapMarkerClusterer;
+let googleMapInfoWindow;
 
 // Additional info counters
-var totalConnectedTime = 0;
-var totalEdits = 0;
-var totalEditsWithLocation = 0;
-var totalLettersChanged = 0;
+let totalConnectedTime = 0;
+let totalEdits = 0;
+let totalEditsWithLocation = 0;
+let totalLettersChanged = 0;
 
 function InitialiseGoogleMap() {
 	// Initialise the Google Map
